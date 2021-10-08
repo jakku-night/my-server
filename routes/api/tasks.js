@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const crud = require('../lib/crud');
+const crud = require('../../lib/crud');
+const link = '/api/tasks/';
 
-router.get('/', async (req, res) => {
-    res.sendFile('index.html');
+router.get(link, async (req, res) => {
+    res.json(await crud.get_all('tasks'));
+    //res.sendFile('index.html');
 });
 
-router.post('/', async (req, res) => {
+router.post(link, async (req, res) => {
     const { task, description } = req.body;
     var new_data = {};
     if(task === '' || description === ''){
@@ -21,7 +23,7 @@ router.post('/', async (req, res) => {
     //res.sendFile('index.html');
 });
 
-router.put('/', async (req, res) => {
+router.put(link, async (req, res) => {
     const { task, description, id } = req.body;
     console.log(task, description, id);
     var new_data = {};
@@ -37,7 +39,7 @@ router.put('/', async (req, res) => {
     //res.sendFile('index.html');
 });
 
-router.delete('/', async (req, res) => {
+router.delete(link, async (req, res) => {
     res.json(await crud.delete_row('tasks'));
     //res.sendFile('index.html');
 });

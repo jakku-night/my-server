@@ -4,6 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const SocketIO = require('socket.io');
 const path = require('path');
+const tasks = require('./routes/api/tasks');
 
 const app = express();
 
@@ -16,9 +17,11 @@ app.set('port', process.env.PORT || 3000);
 app.use(cors(cors_options));
 app.use(fileupload());
 app.use((req, res, next) => {
-    console.log(req.protocol.toUpperCase(), req.method.toUpperCase(), req.originalUrl);
+    console.log('[' + req.method.toUpperCase() + ']: ' + req.protocol.toLocaleLowerCase() + '://localhost:' + app.get('port') + req.originalUrl);
     next();
 });
+
+app.use(tasks);
 
 const Server = app.listen(app.get('port'), () => {
     console.log('SERVER ON PORT', app.get('port'));

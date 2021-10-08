@@ -3,6 +3,41 @@
         <title>My Server</title>
     </head>
     <body>
+        <script>
+            const headers = {
+                'Access-Control-Allow-Origin': '*'
+            };
+            const mode = 'cors';
+            const send_data = async (event) => {
+                event.preventDefault();
+                const body = new FormData(event.target);
+                console.log('[task]:', body.get('task'), '[description]:', body.get('description'));
+                try{
+                    const res = await fetch(event.target.action, {
+                        mode,
+                        method: 'POST',
+                        headers,
+                        body
+                    });
+                    const aux = JSON.parse(await res.json());
+                    if(aux.status === 'ERROR'){
+                        alert('[ERROR]: FATAL ERROR');
+                    }else{
+                        alert('[OK]: QUERY OK');
+                    }
+                }catch(error){
+                    alert('[ERROR]: FATAL ERROR');
+                    console.error(error);
+                }
+            };
+        </script>
         <h1>Landing Page...</h1>
+        <form action="http://localhost:3000/api/tasks/" id="form" onsubmit="send_data(event)" >
+            <input type="text" name="task" id="task" placeholder="Task">
+            <br>
+            <input type="text" name="description" id="description" placeholder="Description">
+            <br>
+            <button type="submit">Send</button>
+        </form>
     </body>
 </html>
