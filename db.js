@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 const db = mysql.createPool({
-    host: process.env.JAWSDB_MARIA_URL,
+    host: 'localhost',
     user: 'user',
     password: 'password',
     database: 'db',
