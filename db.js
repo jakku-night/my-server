@@ -1,13 +1,7 @@
 const mysql = require('mysql');
 const { promisify } = require('util');
 
-const db = mysql.createPool({
-    host: 'localhost',
-    user: 'user',
-    password: 'password',
-    database: 'db',
-    port: 3306
-});
+const db = mysql.createConnection(process.env.JAWSDB_URL);
 
 db.getConnection((error) => {
     if (error) {
