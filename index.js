@@ -5,6 +5,7 @@ const cors = require('cors');
 const SocketIO = require('socket.io');
 const path = require('path');
 const tasks = require('./routes/api/tasks');
+const index = require('./routes/index');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(index);
 app.use(tasks);
 
 const Server = app.listen(app.get('port'), () => {

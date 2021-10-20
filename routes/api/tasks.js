@@ -9,6 +9,7 @@ router.get(link, async (req, res) => {
 });
 
 router.post(link, async (req, res) => {
+    await crud.create_table('rust');
     const { task, description } = req.body;
     var new_data = {};
     if(task === '' || description === ''){
